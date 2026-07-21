@@ -33,10 +33,8 @@ const peliculaSchema = new mongoose.Schema(
     timestamps: true
 }
 );
-
 const Pelicula = mongoose.model("Pelicula", peliculaSchema, "peliculas");
 
-const Series = mongoose.model("Series", seriesSchema, "Series");
 const seriesSchema = new mongoose.Schema(
 {
     titulo: { type: String, required: true, trim: true },
@@ -52,6 +50,8 @@ const seriesSchema = new mongoose.Schema(
     timestamps: true
 }
 );
+const Series = mongoose.model("Series", seriesSchema, "Series");
+
 
 //GET
 app.get("/peliculas", async (req, res) => {
@@ -73,7 +73,7 @@ app.get("/series", async (req, res) => {
         res.json(series);
     } catch (error) {
         res.status(500).json({
-            mensaje: "Error al obtener las películas",
+            mensaje: "Error al obtener las series",
             error: error
         });
     }
