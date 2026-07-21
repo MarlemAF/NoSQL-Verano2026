@@ -36,11 +36,41 @@ const peliculaSchema = new mongoose.Schema(
 
 const Pelicula = mongoose.model("Pelicula", peliculaSchema, "peliculas");
 
+const Series = mongoose.model("Series", seriesSchema, "Series");
+const seriesSchema = new mongoose.Schema(
+{
+    titulo: { type: String, required: true, trim: true },
+    genero: { type: String, required: true, trim: true },
+    año: { type: Number, required: true },
+    temporadas: { type: Number, required: true },
+    episodios: { type: Number, required: true },
+    idioma: { type: String, required: true, trim: true },
+    calificacion: { type: Number, required: true, min: 0, max: 10 },
+    nc: { type: String, required: true, trim: true }
+},
+{
+    timestamps: true
+}
+);
+
 //GET
 app.get("/peliculas", async (req, res) => {
     try {
         const peliculas = await Pelicula.find();
         res.json(peliculas);
+    } catch (error) {
+        res.status(500).json({
+            mensaje: "Error al obtener las películas",
+            error: error
+        });
+    }
+});
+
+
+app.get("/series", async (req, res) => {
+    try {
+        const series = await Series.find();
+        res.json(series);
     } catch (error) {
         res.status(500).json({
             mensaje: "Error al obtener las películas",
