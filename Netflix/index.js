@@ -21,6 +21,7 @@ async function iniciarServidor(){
         console.log(
          "Servidor iniciado en http://localhost:"+PORT);
       });
+      
    }catch(error){
       console.error("No se pudo conectar con MongoDB");
       console.error(error.message);
