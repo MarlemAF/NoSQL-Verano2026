@@ -10,16 +10,24 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-mongoose
-    .connect(
+async function iniciarServidor(){
+   try{
+    await mongoose.connect(
         "mongodb+srv://grupo:grupo@servidorprueba.ygegryf.mongodb.net/netflix"
-    )
-    .then(() => {
-        console.log("Conectado correctamente a MongoDB");
-    })
-    .catch((error) => {
-        console.error("Error al conectar con MongoDB:", error);
-    });
+    );
+      console.log("Conectado correctamente a MongoDB");
+
+      app.listen(PORT, () => {
+        console.log(
+         "Servidor iniciado en http://localhost:"+PORT);
+      });
+   }catch(error){
+      console.error("No se pudo conectar con MongoDB");
+      console.error(error.message);
+   }
+
+}
+iniciarServidor();
 
 // Esquemas
 
